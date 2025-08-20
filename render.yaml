@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: ceramic-zone-backend
+    env: node
+    plan: free
+    branch: main
+    rootDir: .
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_KEY
+        sync: false
+      - key: PORT
+        value: 8080
+      - key: BACKEND_URL
+        value: http://localhost:8080
