@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+# ceramic-zone
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/firefaststudio/ceramic-zone)
+=======
+>>>>>>> eeee9f2 (chore: remove CommonJS test-supabase.cjs after migration to ESM)
 # marketplace-backend
 
 Backend Node.js per marketplace con Supabase e Framer.
@@ -42,3 +49,7 @@ Backend Node.js per marketplace con Supabase e Framer.
 ---
 
 Per domande o supporto, apri una issue su GitHub.
+<<<<<<< HEAD
+=======
+>>>>>>> e606d8b (Aggiunta render.yaml, README, logger, test Supabase e file env example)
+>>>>>>> eeee9f2 (chore: remove CommonJS test-supabase.cjs after migration to ESM)
