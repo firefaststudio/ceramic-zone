@@ -19,7 +19,18 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: |
-          .\scripts\run-migration-and-smoke.ps1
+          Write-Host "Current directory: $(Get-Location)"
+          Write-Host "Listing contents:"
+          Get-ChildItem -Path . -Name
+          Write-Host "Checking scripts folder:"
+          Get-ChildItem -Path .\scripts -Name
+          if (Test-Path ".\scripts\run-migration-and-smoke.ps1") {
+            Write-Host "Script found, executing..."
+            & ".\scripts\run-migration-and-smoke.ps1"
+          } else {
+            Write-Error "Script not found at .\scripts\run-migration-and-smoke.ps1"
+            exit 1
+          }
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
