@@ -1,4 +1,4 @@
-# Questo è un commento di test per forzare il refresh del workflow
+# Workflow aggiornato - versione Bash definitiva
 name: Run migration and smoke tests
 
 on:
