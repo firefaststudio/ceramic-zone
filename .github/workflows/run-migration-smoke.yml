@@ -1,8 +1,11 @@
-# Workflow Windows con PowerShell e PostgreSQL via Chocolatey
 name: Run migration and smoke tests
 
 on:
   workflow_dispatch:
+
+defaults:
+  run:
+    shell: pwsh
 
 jobs:
   migration-and-smoke:
@@ -17,7 +20,6 @@ jobs:
           node-version: '18'
 
       - name: Install PostgreSQL client
-        shell: pwsh
         run: |
           Write-Host "Installing PostgreSQL client via Chocolatey..."
           Set-ExecutionPolicy Bypass -Scope Process -Force
@@ -26,11 +28,9 @@ jobs:
           $env:Path += ';C:\Program Files\PostgreSQL\15\bin'
 
       - name: Install npm dependencies
-        shell: pwsh
         run: npm ci
 
       - name: Run migration & smoke script
-        shell: pwsh
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: |
@@ -46,20 +46,20 @@ jobs:
           npm run smoke
 
       - name: Export dumps and counts
-        shell: pwsh
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: |
           psql $env:DATABASE_URL -c "SELECT count(*) AS products_count FROM products;" | Out-File dump-products-count.txt
           psql $env:DATABASE_URL -c "COPY (SELECT * FROM orders) TO STDOUT WITH CSV HEADER;" | Out-File dump-orders.txt
           psql $env:DATABASE_URL -c "COPY (SELECT * FROM order_items) TO STDOUT WITH CSV HEADER;" | Out-File dump-order_items.txt
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: migration-smoke-artifacts
           path: |
-            migration-log.txt
-            smoke-report.json
             dump-products-count.txt
             dump-orders.txt
             dump-order_items.txt
+            smoke-report.json
+            migration-log.txt
