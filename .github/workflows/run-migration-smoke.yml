@@ -1,4 +1,4 @@
-# Workflow aggiornato - versione Bash definitiva
+# Workflow Windows con PowerShell e PostgreSQL via Chocolatey
 name: Run migration and smoke tests
 
 on:
@@ -6,73 +6,53 @@ on:
 
 jobs:
   migration-and-smoke:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
+
     steps:
       - uses: actions/checkout@v3
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+
       - name: Install PostgreSQL client
-        run: sudo apt-get update && sudo apt-get install -y postgresql-client
-          
+        shell: pwsh
+        run: |
+          Write-Host "Installing PostgreSQL client via Chocolatey..."
+          Set-ExecutionPolicy Bypass -Scope Process -Force
+          iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+          choco install postgresql --version=15.3 -y
+          $env:Path += ';C:\Program Files\PostgreSQL\15\bin'
+
       - name: Install npm dependencies
+        shell: pwsh
         run: npm ci
-        
+
       - name: Run migration & smoke script
+        shell: pwsh
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: |
           echo "Starting migration and smoke tests..."
-          
-          # Verifica DATABASE_URL
-          if [ -z "$DATABASE_URL" ]; then
-            echo "ERROR: DATABASE_URL secret not configured in repository settings"
-            echo "Please add DATABASE_URL to repository secrets"
-            exit 1
-          fi
-          
-          echo "DATABASE_URL is configured"
-          
-          # Verifica file necessari
-          if [ ! -f "001_create_tables.sql" ]; then
-            echo "ERROR: 001_create_tables.sql missing"
-            exit 1
-          fi
-          
-          if [ ! -f "scripts/migrate-products.js" ]; then
-            echo "ERROR: scripts/migrate-products.js missing"
-            exit 1
-          fi
-          
-          # Applica migration SQL
           echo "Applying SQL migration..."
-          psql "$DATABASE_URL" -f 001_create_tables.sql
-          
-          # Migra prodotti
+          psql $env:DATABASE_URL -f 001_create_tables.sql
           echo "Migrating products..."
           node scripts/migrate-products.js
-          
-          # Avvia server in background
           echo "Starting server..."
-          node index.js &
-          SERVER_PID=$!
-          sleep 5
-          
-          # Esegui smoke tests
+          Start-Process -NoNewWindow -FilePath node -ArgumentList index.js
+          Start-Sleep -Seconds 5
           echo "Running smoke tests..."
           npm run smoke
-          
-          # Ferma il server
-          kill $SERVER_PID 2>/dev/null || true
-          
-          # Esporta dump e conteggi
-          echo "Exporting database dumps..."
-          psql "$DATABASE_URL" -c "SELECT count(*) AS products_count FROM products;" > dump-products-count.txt
-          psql "$DATABASE_URL" -c "COPY (SELECT * FROM orders) TO STDOUT WITH CSV HEADER;" > dump-orders.txt || echo "id" > dump-orders.txt
-          psql "$DATABASE_URL" -c "COPY (SELECT * FROM order_items) TO STDOUT WITH CSV HEADER;" > dump-order_items.txt || echo "id" > dump-order_items.txt
-          
-          echo "Migration and smoke tests completed successfully!"
+
+      - name: Export dumps and counts
+        shell: pwsh
+        run: |
+          psql $env:DATABASE_URL -c "SELECT count(*) AS products_count FROM products;" > dump-products-count.txt
+          psql $env:DATABASE_URL -c "COPY (SELECT * FROM orders) TO STDOUT WITH CSV HEADER;" > dump-orders.txt
+          psql $env:DATABASE_URL -c "COPY (SELECT * FROM order_items) TO STDOUT WITH CSV HEADER;" > dump-order_items.txt
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
