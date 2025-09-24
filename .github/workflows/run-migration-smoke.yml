@@ -20,7 +20,7 @@ jobs:
         run: |
           .\scripts\run-migration-and-smoke.ps1
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: migration-smoke-artifacts
           path: |
