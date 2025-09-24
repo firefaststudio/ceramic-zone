@@ -1,0 +1,30 @@
+name: Run migration and smoke tests
+
+on:
+  workflow_dispatch:
+
+jobs:
+  migration-and-smoke:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Run migration & smoke script
+        shell: pwsh
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          .\scripts\run-migration-and-smoke.ps1
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: migration-smoke-artifacts
+          path: |
+            migration-log.txt
+            smoke-report.json
+            dump-products-count.txt
+            dump-orders.txt
+            dump-order_items.txt
