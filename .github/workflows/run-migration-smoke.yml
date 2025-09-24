@@ -34,25 +34,25 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: |
-          echo "Starting migration and smoke tests..."
-          echo "Applying SQL migration..."
+          Write-Host "Starting migration and smoke tests..."
+          Write-Host "Applying SQL migration..."
           psql $env:DATABASE_URL -f 001_create_tables.sql
-          echo "Migrating products..."
-          node scripts/migrate-products.js
-          echo "Starting server..."
+          Write-Host "Migrating products..."
+          node .\scripts\migrate-products.js
+          Write-Host "Starting server..."
           Start-Process -NoNewWindow -FilePath node -ArgumentList index.js
           Start-Sleep -Seconds 5
-          echo "Running smoke tests..."
+          Write-Host "Running smoke tests..."
           npm run smoke
 
       - name: Export dumps and counts
         shell: pwsh
-        run: |
-          psql $env:DATABASE_URL -c "SELECT count(*) AS products_count FROM products;" > dump-products-count.txt
-          psql $env:DATABASE_URL -c "COPY (SELECT * FROM orders) TO STDOUT WITH CSV HEADER;" > dump-orders.txt
-          psql $env:DATABASE_URL -c "COPY (SELECT * FROM order_items) TO STDOUT WITH CSV HEADER;" > dump-order_items.txt
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          psql $env:DATABASE_URL -c "SELECT count(*) AS products_count FROM products;" | Out-File dump-products-count.txt
+          psql $env:DATABASE_URL -c "COPY (SELECT * FROM orders) TO STDOUT WITH CSV HEADER;" | Out-File dump-orders.txt
+          psql $env:DATABASE_URL -c "COPY (SELECT * FROM order_items) TO STDOUT WITH CSV HEADER;" | Out-File dump-order_items.txt
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
