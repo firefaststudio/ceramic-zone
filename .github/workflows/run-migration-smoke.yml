@@ -1,3 +1,4 @@
+# Questo è un commento di test per forzare il refresh del workflow
 name: Run migration and smoke tests
 
 on:
