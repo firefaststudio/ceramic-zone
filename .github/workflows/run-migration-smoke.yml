@@ -13,24 +13,65 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+      - name: Install PostgreSQL client
+        run: |
+          choco install postgresql --version=13.16.0 --params '/Password:postgres'
+          
+      - name: Install npm dependencies
+        run: npm install
+        
       - name: Run migration & smoke script
-        shell: pwsh
-        working-directory: ${{ github.workspace }}
+        shell: bash
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: |
-          Write-Host "Current directory: $(Get-Location)"
-          Write-Host "Listing contents:"
-          Get-ChildItem -Path . -Name
-          Write-Host "Checking scripts folder:"
-          Get-ChildItem -Path .\scripts -Name
-          if (Test-Path ".\scripts\run-migration-and-smoke.ps1") {
-            Write-Host "Script found, executing..."
-            & ".\scripts\run-migration-and-smoke.ps1"
-          } else {
-            Write-Error "Script not found at .\scripts\run-migration-and-smoke.ps1"
+          echo "Starting migration and smoke tests..."
+          
+          # Verifica DATABASE_URL
+          if [ -z "$DATABASE_URL" ]; then
+            echo "ERROR: DATABASE_URL not set"
             exit 1
-          }
+          fi
+          
+          # Verifica file necessari
+          if [ ! -f "001_create_tables.sql" ]; then
+            echo "ERROR: 001_create_tables.sql missing"
+            exit 1
+          fi
+          
+          if [ ! -f "scripts/migrate-products.js" ]; then
+            echo "ERROR: scripts/migrate-products.js missing"
+            exit 1
+          fi
+          
+          # Applica migration SQL
+          echo "Applying SQL migration..."
+          psql "$DATABASE_URL" -f 001_create_tables.sql
+          
+          # Migra prodotti
+          echo "Migrating products..."
+          node scripts/migrate-products.js
+          
+          # Avvia server in background
+          echo "Starting server..."
+          node index.js &
+          SERVER_PID=$!
+          sleep 5
+          
+          # Esegui smoke tests
+          echo "Running smoke tests..."
+          npm run smoke
+          
+          # Ferma il server
+          kill $SERVER_PID 2>/dev/null || true
+          
+          # Esporta dump e conteggi
+          echo "Exporting database dumps..."
+          psql "$DATABASE_URL" -c "SELECT count(*) AS products_count FROM products;" > dump-products-count.txt
+          psql "$DATABASE_URL" -c "COPY (SELECT * FROM orders) TO STDOUT WITH CSV HEADER;" > dump-orders.txt || echo "id" > dump-orders.txt
+          psql "$DATABASE_URL" -c "COPY (SELECT * FROM order_items) TO STDOUT WITH CSV HEADER;" > dump-order_items.txt || echo "id" > dump-order_items.txt
+          
+          echo "Migration and smoke tests completed successfully!"
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
