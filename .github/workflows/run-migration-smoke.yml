@@ -177,13 +177,40 @@ jobs:
             ls -la migration-log.txt || echo "Even emergency creation failed!"
           fi
 
-      - name: Upload artifacts
+      - name: Final verification before upload
+        run: |
+          echo "=== PRE-UPLOAD VERIFICATION ==="
+          echo "Current working directory: $(pwd)"
+          echo "All files in directory:"
+          ls -la
+          echo ""
+          echo "Specifically checking required files:"
+          for file in dump-products-count.txt dump-orders.txt dump-order_items.txt smoke-report.json migration-log.txt; do
+            if [ -f "$file" ]; then
+              size=$(wc -c < "$file" 2>/dev/null || echo "0")
+              echo "✅ $file - $size bytes - $(file "$file" 2>/dev/null || echo 'text file')"
+            else
+              echo "❌ $file - MISSING!"
+            fi
+          done
+          echo ""
+          echo "Creating backup files if migration-log.txt is missing:"
+          if [ ! -f migration-log.txt ]; then
+            echo "BACKUP CREATION LOG" > migration-log.txt
+            echo "Created because original was missing at upload time" >> migration-log.txt
+            echo "Timestamp: $(date)" >> migration-log.txt
+            echo "✅ Backup migration-log.txt created"
+          fi
+          
+      - name: Upload artifacts with explicit paths
         uses: actions/upload-artifact@v4
         with:
           name: migration-smoke-artifacts
           path: |
-            dump-products-count.txt
-            dump-orders.txt
-            dump-order_items.txt
-            smoke-report.json
-            migration-log.txt
+            ./dump-products-count.txt
+            ./dump-orders.txt
+            ./dump-order_items.txt
+            ./smoke-report.json
+            ./migration-log.txt
+          retention-days: 30
+          if-no-files-found: warn
