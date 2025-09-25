@@ -45,13 +45,18 @@ jobs:
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/testdb
         run: |
-          echo "Starting migration and smoke tests..."
-          echo "Applying SQL migration..."
-          psql "$DATABASE_URL" -f 001_create_tables.sql
-          echo "Migrating products..."
-          node scripts/migrate-products.js
-          echo "Running smoke tests..."
-          npm run smoke
+          echo "Starting migration and smoke tests..." | tee migration-log.txt
+          echo "Applying SQL migration..." | tee -a migration-log.txt
+          psql "$DATABASE_URL" -f 001_create_tables.sql 2>&1 | tee -a migration-log.txt
+          echo "Migrating products..." | tee -a migration-log.txt
+          node scripts/migrate-products.js 2>&1 | tee -a migration-log.txt
+          echo "Starting server..." | tee -a migration-log.txt
+          node index.js &
+          SERVER_PID=$!
+          sleep 5
+          echo "Running smoke tests..." | tee -a migration-log.txt
+          npm run smoke 2>&1 | tee -a migration-log.txt
+          kill $SERVER_PID 2>/dev/null || true
 
       - name: Export dumps and counts
         env:
