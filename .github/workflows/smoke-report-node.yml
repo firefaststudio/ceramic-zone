@@ -1,0 +1,26 @@
+name: Smoke test - Node report
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install deps
+        run: npm ci
+      - name: Run Node report
+        run: npm run report:node
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: report-artifacts
+          path: reporting/output/**

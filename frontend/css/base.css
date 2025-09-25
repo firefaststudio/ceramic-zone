@@ -1,0 +1,153 @@
+/* Reset leggero + base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: var(--max-w);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.section {
+  padding-block: var(--space-8);
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--space-4);
+}
+
+h1 {
+  font-size: var(--fs-900);
+}
+
+h2 {
+  font-size: var(--fs-800);
+}
+
+h3 {
+  font-size: var(--fs-700);
+}
+
+.lead {
+  font-size: var(--fs-600);
+  color: var(--color-muted);
+}
+
+/* Focus visibile accessibile */
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Bottoni base */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  font-weight: 600;
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+  box-shadow: var(--shadow-1);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-2);
+}
+
+.btn.ghost {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+/* Header and layout specific */
+header {
+  background: linear-gradient(180deg, var(--color-surface), var(--color-bg));
+  padding-block: var(--space-4);
+}
+
+header .top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+}
+
+main {
+  padding: var(--space-6) 0;
+}
+
+#news {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-4);
+}
+
+footer {
+  text-align: center;
+  padding: var(--space-4) 0;
+  color: var(--color-muted);
+}

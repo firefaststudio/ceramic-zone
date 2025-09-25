@@ -1,0 +1,42 @@
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "it_custom": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "italian_stemmer"
+          ]
+        }
+      },
+      "filter": {
+        "italian_stemmer": {
+          "type": "stemmer",
+          "language": "italian"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "name": {
+        "type": "text",
+        "analyzer": "it_custom"
+      },
+      "brand": {
+        "type": "keyword"
+      },
+      "categories": {
+        "type": "keyword"
+      },
+      "price": {
+        "type": "float"
+      },
+      "in_stock": {
+        "type": "boolean"
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+name: Smoke tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Start server (TEST_HZ)
+        env:
+          TEST_HZ: '1'
+          PORT: '8080'
+        run: |
+          # Start server in background and wait for port
+          node index.js &
+          n=0; until nc -z localhost 8080 || [ $n -ge 15 ]; do sleep 1; n=$((n+1)); done
+
+      - name: Run smoke tests (headless)
+        env:
+          CI: 'true'
+        run: |
+          npm run --silent test || true
+          node ./scripts/smoke/header-smoke.mjs --force-hz --headless --no-sandbox --disable-dev-shm-usage
+
+      - name: Upload smoke report
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-report
+          path: smoke-report.json

@@ -1,0 +1,291 @@
+<!DOCTYPE html><html lang="it"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ceramic Zone</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:wght@700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ceramic Zone</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:wght@700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="sr-only" href="#main">Salta al contenuto</a>
+
+  <!-- HEADER -->
+  <header class="hz-header" role="banner">
+    <div class="hz-header__top">
+      <div class="hz-header__left">
+        <button class="hz-burger" aria-label="Apri menu" aria-expanded="false" aria-controls="nav-drawer">
+          <span class="hz-burger__bar"></span>
+          <span class="hz-burger__bar"></span>
+          <span class="hz-burger__bar"></span>
+        </button>
+        <a href="/" class="hz-logo" aria-label="Ceramic Zone home">
+          <span class="hz-logo__mark">CZ</span>
+          <span class="hz-logo__text">Ceramic Zone</span>
+        </a>
+      </div>
+
+      <!-- Ricerca centrale -->
+      <form id="site-search" class="hz-search" role="search" aria-label="Cerca prodotti">
+        <label class="sr-only" for="search-category">Categoria</label>
+        <select id="search-category" name="category" class="hz-search__select" aria-label="Seleziona categoria">
+          <option value="tutte">Tutte</option>
+          <option value="rivestimenti">Rivestimenti</option>
+          <option value="pavimenti">Pavimenti</option>
+          <option value="bagno">Bagno</option>
+          <option value="cucina">Cucina</option>
+          <option value="outdoor">Outdoor</option>
+          <option value="accessori">Accessori</option>
+        </select>
+
+        <div class="hz-search__field">
+          <label class="sr-only" for="search-input">Cerca</label>
+          <input id="search-input" name="q" type="search" placeholder="Cerca ceramiche, superfici, accessori…" autocomplete="off" aria-autocomplete="list" aria-controls="search-suggest" aria-expanded="false">
+          <button class="hz-search__submit" aria-label="Esegui ricerca" type="submit">Cerca</button>
+
+          <!-- Suggerimenti -->
+          <ul id="search-suggest" class="hz-suggest" role="listbox" aria-label="Suggerimenti di ricerca" hidden=""></ul>
+        
+        
+        
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width,initial-scale=1">
+          <title>Ceramic Zone — Rivestimenti, Pavimenti e Design</title>
+          <style>
+            /* adapted Amazon-like theme for Ceramic Zone */
+            *{margin:0;padding:0;box-sizing:border-box}
+            body{font-family:Inter,Arial,sans-serif;font-size:14px;line-height:1.4;color:#0F1111;background:#fff}
+            .navbar{background:linear-gradient(to bottom,#232F3E,#131A22);color:#fff;position:sticky;top:0;z-index:1000}
+            .navbar-main{display:flex;align-items:center;padding:8px 14px;min-height:60px}
+            .navbar-logo{padding:4px 9px;margin-right:8px;border-radius:2px;display:flex;align-items:center;cursor:pointer}
+            .cz-logo{width:110px;height:28px;background:transparent;color:white;font-weight:700;font-size:18px;display:flex;align-items:center}
+            .cz-mark{background:#FF7A00;color:#fff;padding:4px 8px;border-radius:4px;margin-right:8px;font-weight:800}
+            .navbar-location{padding:9px;border-radius:2px;cursor:pointer;color:#fff;margin-right:8px}
+            .location-text{font-size:12px;color:#ccc}
+            .location-main{font-size:14px;font-weight:700}
+            .navbar-search{flex:1;max-width:820px;margin:0 14px;display:flex;position:relative}
+            .search-dropdown{background:#F3F3F3;border:none;padding:0 8px;border-radius:4px 0 0 4px;font-size:12px;color:#0F1111;cursor:pointer;width:60px;border-right:1px solid #CDCDCD}
+            .search-input{flex:1;padding:7px 8px;border:none;outline:none;font-size:16px}
+            .search-button{background:#FEBD69;border:none;padding:0 12px;border-radius:0 4px 4px 0;cursor:pointer}
+            .navbar-language,.navbar-account,.navbar-orders,.navbar-cart{padding:6px 9px;border-radius:2px;cursor:pointer;margin-right:8px}
+            .cart-count{position:absolute;top:2px;right:8px;background:#FF9900;color:#0F1111;border-radius:8px;padding:2px 6px;font-size:12px;font-weight:700}
+            .navbar-sub{background:#232F3E;padding:8px 14px;display:flex;align-items:center;font-size:14px}
+            .navbar-sub a{color:#fff;text-decoration:none;padding:8px 9px;border-radius:2px;margin-right:18px}
+            .hamburger-menu{display:flex;align-items:center;margin-right:18px;padding:8px 9px;border-radius:2px;cursor:pointer}
+
+            .main-content{background:linear-gradient(to bottom,#E3E6E6 0%,#F0F0F0 15%,#FFFFFF 100%)}
+            .hero-section{position:relative;height:560px;overflow:hidden;background:#000}
+            .hero-carousel{width:100%;height:100%;position:relative}
+            .hero-slide{position:absolute;width:100%;height:100%;opacity:0;transition:opacity 1s ease-in-out}
+            .hero-slide.active{opacity:1}
+            .hero-image{width:100%;height:100%;object-fit:cover}
+            .hero-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.4));height:200px}
+            .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.8);border:none;width:50px;height:100px;cursor:pointer;font-size:24px;color:#333;display:flex;align-items:center;justify-content:center}
+            .carousel-nav.prev{left:20px;border-radius:0 8px 8px 0}
+            .carousel-nav.next{right:20px;border-radius:8px 0 0 8px}
+
+            .product-grid{max-width:1500px;margin:-260px auto 0;padding:0 20px;position:relative;z-index:10}
+            .grid-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:40px}
+            .product-card{background:#fff;border-radius:8px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.08);transition:transform .2s,box-shadow .2s}
+            .product-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.12)}
+            .card-title{font-size:21px;font-weight:500;margin-bottom:12px;color:#0F1111}
+            .card-image{width:100%;height:160px;object-fit:cover;border-radius:6px;margin-bottom:12px}
+            .card-cta{color:#007185;font-size:13px;text-decoration:none}
+
+            .featured-section{max-width:1500px;margin:0 auto;padding:0 20px 40px}
+            .section-title{font-size:24px;font-weight:400;margin-bottom:20px;color:#0F1111}
+            .product-row{display:flex;gap:20px;overflow-x:auto;padding-bottom:10px}
+            .product-item{flex:0 0 300px;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+            .product-image{width:100%;height:200px;object-fit:cover}
+            .product-info{padding:16px}
+            .product-name{font-size:16px;font-weight:400;margin-bottom:8px;color:#0F1111}
+            .product-price{font-size:18px;color:#B12704}
+
+            .footer{background:#232F3E;color:#fff;margin-top:60px}
+            .footer-top{background:#37475A;padding:15px;text-align:center}
+            .back-to-top{color:#fff;text-decoration:none;font-size:13px;font-weight:600}
+            .footer-links{padding:40px 0;max-width:1200px;margin:0 auto}
+            .footer-columns{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;padding:0 20px}
+            .footer-column h3{font-size:16px;font-weight:700;margin-bottom:12px;color:#fff}
+            .footer-column a{color:#DDD;text-decoration:none}
+
+            @media(max-width:768px){.navbar-search{order:3;flex-basis:100%;margin:8px 0 0}.grid-container{grid-template-columns:1fr;gap:16px}.hero-section{height:400px}.product-grid{margin-top:-200px}}
+          </style>
+        
+        
+          <header class="navbar" role="banner">
+            <div class="navbar-main">
+              <div class="navbar-logo" onclick="location.href='/'">
+                <div class="cz-logo"><span class="cz-mark">CZ</span><span style="color:#fff">Ceramic Zone</span></div>
+              </div>
+
+              <div class="navbar-location" onclick="/* open location */">
+                <div class="location-text">Consegna a</div>
+                <div class="location-main">📍 Roma 00100</div>
+              </div>
+
+              <div class="navbar-search">
+                <select class="search-dropdown" id="searchCategory">
+                  <option value="all">Tutte le categorie</option>
+                  <option value="rivestimenti">Rivestimenti</option>
+                  <option value="pavimenti">Pavimenti</option>
+                  <option value="bagno">Bagno</option>
+                  <option value="cucina">Cucina</option>
+                </select>
+                <input type="text" class="search-input" id="searchInput" placeholder="Cerca Ceramic Zone">
+                <button class="search-button" onclick="performSearch()">🔍</button>
+              </div>
+
+              <div class="navbar-language" onclick="changeLanguage()">IT</div>
+              <div class="navbar-account" onclick="showAccount()">Ciao, accedi</div>
+              <div class="navbar-orders" onclick="showOrders()">Resi e ordini</div>
+              <div class="navbar-cart" onclick="toggleCart()">🛒<span class="cart-count" id="cartCount">0</span></div>
+            </div>
+            <div class="navbar-sub">
+              <div class="hamburger-menu" onclick="showAllDepartments()">☰ Tutte le categorie</div>
+              <a href="#">Novità</a>
+              <a href="#">Offerte del giorno</a>
+              <a href="#">Scelti per te</a>
+              <a href="#">Collezioni</a>
+              <a href="#">Contatti</a>
+            </div>
+          </header>
+
+          <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+          <div class="cart-sidebar" id="cartSidebar">
+            <div style="padding:20px">
+              <h2>Carrello</h2>
+              <div id="cartItems"><p style="color:#666">Il tuo carrello è vuoto</p></div>
+              <div id="cartTotal" style="margin-top:20px;border-top:1px solid #ddd;padding-top:20px">
+                <p style="font-size:18px;font-weight:bold">Totale: €0,00</p>
+                <button style="width:100%;background:#FF9900;border:none;padding:12px;border-radius:4px;color:white;font-size:16px;font-weight:bold;margin-top:16px;cursor:pointer" onclick="proceedToCheckout()">Procedi all'acquisto</button>
+              </div>
+            </div>
+          </div>
+
+          <main class="main-content" id="main">
+            <section class="hero-section">
+              <div class="hero-carousel" id="heroCarousel">
+                <div class="hero-slide active"><img class="hero-image" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&amp;h=600&amp;fit=crop" alt="Collezioni"><div class="hero-overlay"></div></div>
+                <div class="hero-slide"><img class="hero-image" src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=1600&amp;h=600&amp;fit=crop" alt="Lastre"><div class="hero-overlay"></div></div>
+                <div class="hero-slide"><img class="hero-image" src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1600&amp;h=600&amp;fit=crop" alt="Outdoor"><div class="hero-overlay"></div></div>
+              </div>
+              <button class="carousel-nav prev" onclick="previousSlide()">‹</button>
+              <button class="carousel-nav next" onclick="nextSlide()">›</button>
+            </section>
+
+            <section class="product-grid">
+              <div class="grid-container" id="productGrid"><div class="product-card">
+                  <img class="card-image" src="/img/p1-1.jpg" alt="Piastrella Porcellanato Bianca 60x60">
+                  <div class="card-title">Piastrella Porcellanato Bianca 60x60</div>
+                  <div style="margin-top:8px"><span style="color:#B12704;font-weight:600">€29,90</span></div>
+                  <p style="margin-top:12px;color:#666">Piastrella resistente per interni ed esterni</p>
+                  <a class="card-cta" href="#" data-id="p1" onclick="viewProduct(event)">Vedi prodotto</a>
+                </div><div class="product-card">
+                  <img class="card-image" src="/img/p2-1.jpg" alt="Rivestimento Marmo Rettificato 30x60">
+                  <div class="card-title">Rivestimento Marmo Rettificato 30x60</div>
+                  <div style="margin-top:8px"><span style="color:#B12704;font-weight:600">€45,00</span></div>
+                  <p style="margin-top:12px;color:#666">Finitura marmo lucida</p>
+                  <a class="card-cta" href="#" data-id="p2" onclick="viewProduct(event)">Vedi prodotto</a>
+                </div><div class="product-card">
+                  <img class="card-image" src="/img/p3-1.jpg" alt="Grande Lastra 120x240">
+                  <div class="card-title">Grande Lastra 120x240</div>
+                  <div style="margin-top:8px"><span style="color:#B12704;font-weight:600">€85,00</span></div>
+                  <p style="margin-top:12px;color:#666">Grande lastra per pavimenti e rivestimenti</p>
+                  <a class="card-cta" href="#" data-id="p3" onclick="viewProduct(event)">Vedi prodotto</a>
+                </div><div class="product-card">
+                  <img class="card-image" src="/img/p4-1.jpg" alt="Kit Manutenzione">
+                  <div class="card-title">Kit Manutenzione</div>
+                  <div style="margin-top:8px"><span style="color:#B12704;font-weight:600">€19,90</span></div>
+                  <p style="margin-top:12px;color:#666">Kit per pulizia e manutenzione superfici</p>
+                  <a class="card-cta" href="#" data-id="p4" onclick="viewProduct(event)">Vedi prodotto</a>
+                </div></div>
+            </section>
+
+            <section class="featured-section">
+              <h2 class="section-title">Prodotti consigliati per te</h2>
+              <div class="product-row" id="recommendedProducts"><div class="product-item"><img class="product-image" src="/img/p1-1.jpg" alt="Piastrella Porcellanato Bianca 60x60"><div class="product-info"><div class="product-name">Piastrella Porcellanato Bianca 60x60</div><div class="product-price">€29,90</div></div></div><div class="product-item"><img class="product-image" src="/img/p2-1.jpg" alt="Rivestimento Marmo Rettificato 30x60"><div class="product-info"><div class="product-name">Rivestimento Marmo Rettificato 30x60</div><div class="product-price">€45,00</div></div></div><div class="product-item"><img class="product-image" src="/img/p3-1.jpg" alt="Grande Lastra 120x240"><div class="product-info"><div class="product-name">Grande Lastra 120x240</div><div class="product-price">€85,00</div></div></div></div>
+            </section>
+
+          </main>
+
+          <footer class="footer">
+            <div class="footer-top"><a class="back-to-top" onclick="scrollToTop()" href="#">Torna in cima</a></div>
+            <div class="footer-links">
+              <div class="footer-columns">
+                <div class="footer-column"><h3>Informazioni</h3><ul><li><a href="#">Chi siamo</a></li><li><a href="#">Contatti</a></li><li><a href="#">Termini</a></li></ul></div>
+                <div class="footer-column"><h3>Servizi</h3><ul><li><a href="#">Spedizioni</a></li><li><a href="#">Resi</a></li><li><a href="#">Pagamenti</a></li></ul></div>
+                <div class="footer-column"><h3>Area Aziende</h3><ul><li><a href="#">Vendi con noi</a></li><li><a href="#">Dashboard venditori</a></li></ul></div>
+              </div>
+            </div>
+          </footer>
+
+          <script>
+            // minimal interactive behaviors
+            function performSearch(){const q=document.getElementById('searchInput').value;alert('Cerca: '+q)}
+            function toggleCart(){const s=document.getElementById('cartSidebar');const o=document.getElementById('cartOverlay');if(!s.classList.contains('open')){s.classList.add('open');o.classList.add('open')}else{s.classList.remove('open');o.classList.remove('open')}}
+            function proceedToCheckout(){alert('Procedi al checkout (mock)')}
+            function previousSlide(){const slides=document.querySelectorAll('.hero-slide');let idx=[...slides].findIndex(s=>s.classList.contains('active'));slides[idx].classList.remove('active');idx=(idx-1+slides.length)%slides.length;slides[idx].classList.add('active')}
+            function nextSlide(){const slides=document.querySelectorAll('.hero-slide');let idx=[...slides].findIndex(s=>s.classList.contains('active'));slides[idx].classList.remove('active');idx=(idx+1)%slides.length;slides[idx].classList.add('active')}
+            function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+
+            // Dynamic product loader
+            async function fetchProducts(){
+              try{
+                const res = await fetch('/api/products');
+                if(!res.ok) throw new Error('fetch_failed');
+                const products = await res.json();
+                renderProducts(products);
+                renderRecommended(products);
+              }catch(err){console.error('Failed to load products', err)}
+            }
+
+            function formatPrice(v){return v!=null?`€${Number(v).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2})}`:''}
+
+            function renderProducts(products){
+              const container = document.getElementById('productGrid');
+              if(!container) return;
+              container.innerHTML = '';
+              products.forEach(p=>{
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                  <img class="card-image" src="${(p.images && p.images[0]) || 'https://placehold.co/600x400'}" alt="${escapeHtml(p.name || p.title || '')}">
+                  <div class="card-title">${escapeHtml(p.name || p.title || '')}</div>
+                  <div style="margin-top:8px"><span style="color:#B12704;font-weight:600">${formatPrice(p.price)}</span>${p.oldPrice?`<span style="margin-left:8px;color:#565959;text-decoration:line-through">${formatPrice(p.oldPrice)}</span>`:''}</div>
+                  <p style="margin-top:12px;color:#666">${escapeHtml(p.description || '')}</p>
+                  <a class="card-cta" href="#" data-id="${p.id}" onclick="viewProduct(event)">Vedi prodotto</a>
+                `;
+                container.appendChild(card);
+              });
+            }
+
+            function renderRecommended(products){
+              const rec = document.getElementById('recommendedProducts');
+              if(!rec) return;
+              rec.innerHTML='';
+              const items = products.slice(0,3);
+              items.forEach(p=>{
+                const el = document.createElement('div');
+                el.className='product-item';
+                el.innerHTML = `<img class="product-image" src="${(p.images&&p.images[0])||'https://placehold.co/600x400'}" alt="${escapeHtml(p.name||p.title||'')}"><div class="product-info"><div class="product-name">${escapeHtml(p.name||p.title||'')}</div><div class="product-price">${formatPrice(p.price)}</div></div>`;
+                rec.appendChild(el);
+              });
+            }
+
+            function viewProduct(e){e.preventDefault();const id=e.currentTarget.getAttribute('data-id');window.location.href = `/product.html?id=${encodeURIComponent(id)}`}
+
+            function escapeHtml(str){return String(str||'').replace(/[&<>"']/g,function(m){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m]})}
+
+            document.addEventListener('DOMContentLoaded',()=>{fetchProducts();});
+          </script>
+          <script src="app.js" defer=""></script>
+        
+        
+</div></form></div></header></body></html>

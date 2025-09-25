@@ -1,0 +1,60 @@
+name: CI Audit - Lighthouse & Accessibility
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build assets
+        run: npm run build:assets
+
+      - name: Start server
+        run: |
+          nohup node index.js &
+          sleep 2
+
+      - name: Wait for server
+        run: |
+          for i in {1..10}; do
+            curl -sS http://localhost:8080 && break || sleep 1
+          done
+
+      - name: Run Lighthouse (headless)
+        uses: treosh/lighthouse-ci-action@v8
+        with:
+          urls: |
+            http://localhost:8080
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+      - name: Run Pa11y
+        run: |
+          npx pa11y http://localhost:8080 --reporter html > reports/pa11y.html || true
+
+      - name: Run axe-core CLI
+        run: |
+          npx @axe-core/cli http://localhost:8080 --save ./reports/axe.json || true
+
+      - name: Upload reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-audit-reports
+          path: |
+            reports/lighthouse.html
+            reports/pa11y.html
+            reports/axe.json

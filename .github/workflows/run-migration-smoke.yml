@@ -1,0 +1,66 @@
+name: Run migration and smoke tests
+
+on:
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: pwsh
+
+jobs:
+  migration-and-smoke:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Setup PostgreSQL client
+        uses: ikalnytskyi/action-setup-postgres@v4
+        with:
+          username: dummy
+          password: dummy
+          database: dummy
+          port: 5433
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Run migration & smoke script
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          Write-Host "Starting migration and smoke tests..."
+          Write-Host "Applying SQL migration..."
+          psql $env:DATABASE_URL -f 001_create_tables.sql
+          Write-Host "Migrating products..."
+          node .\scripts\migrate-products.js
+          Write-Host "Starting server..."
+          Start-Process -NoNewWindow -FilePath node -ArgumentList index.js
+          Start-Sleep -Seconds 5
+          Write-Host "Running smoke tests..."
+          npm run smoke
+
+      - name: Export dumps and counts
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          psql $env:DATABASE_URL -c "SELECT count(*) AS products_count FROM products;" | Out-File dump-products-count.txt
+          psql $env:DATABASE_URL -c "COPY (SELECT * FROM orders) TO STDOUT WITH CSV HEADER;" | Out-File dump-orders.txt
+          psql $env:DATABASE_URL -c "COPY (SELECT * FROM order_items) TO STDOUT WITH CSV HEADER;" | Out-File dump-order_items.txt
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: migration-smoke-artifacts
+          path: |
+            dump-products-count.txt
+            dump-orders.txt
+            dump-order_items.txt
+            smoke-report.json
+            migration-log.txt

@@ -1,0 +1,37 @@
+/* Glow Kit – reusable neon glows and gradients */
+:root {
+  --neon1: #00FFC6;
+  --neon2: #00BFFF;
+  --neon3: #8A2BE2;
+}
+
+/* Glow base */
+.glow {
+  box-shadow: 0 0 5px var(--neon1), 0 0 15px var(--neon1);
+}
+
+/* Glow pulsante */
+.glow-hover:hover {
+  box-shadow: 0 0 10px var(--neon1), 0 0 25px var(--neon1);
+}
+
+/* Gradiente animato */
+.gradient-animated {
+  background: linear-gradient(135deg, var(--neon1), var(--neon2), var(--neon3));
+  background-size: 300% 300%;
+  animation: gradientShift 8s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}

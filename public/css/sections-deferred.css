@@ -1,0 +1,111 @@
+/* Deferred styles for hero, news, CTA, footer (loaded after critical.css) */
+:root {
+  --glow-color: rgba(0, 191, 255, 0.18)
+}
+
+.hero-neo {
+  background: radial-gradient(1200px 600px at 80% -20%, color-mix(in srgb, var(--light-blue, #e7efff) 30%, transparent) 0, transparent 60%)
+}
+
+.hero-neo__content h1 {
+  font-size: var(--fs-700);
+  line-height: var(--lh-700);
+  text-shadow: 0 6px 24px rgba(0, 0, 0, .6)
+}
+
+.card-neo__btn.glow-pulse {
+  position: relative;
+  z-index: 3;
+  padding: 12px 20px;
+  border-radius: 12px
+}
+
+.card-neo__btn.glow-pulse::after {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  border-radius: 16px;
+  filter: blur(18px);
+  background: linear-gradient(90deg, var(--glow-color), rgba(16, 185, 129, 0.08));
+  opacity: .8;
+  z-index: -1;
+  pointer-events: none
+}
+
+/* News cards visual styles */
+.card-news {
+  background: linear-gradient(180deg, var(--bg-soft), rgba(255, 255, 255, 0.02));
+  border-radius: 12px;
+  overflow: hidden
+}
+
+.card-news .media img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover
+}
+
+.card-news .excerpt {
+  color: var(--steel)
+}
+
+.card-news h3 {
+  color: var(--ink)
+}
+
+/* CTA detailed */
+.btn-primary {
+  background: linear-gradient(180deg, var(--brand-600), var(--brand));
+  color: #fff;
+  border-radius: 10px
+}
+
+.btn-primary:focus {
+  box-shadow: var(--focus-ring)
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.04)
+}
+
+/* Footer visual */
+.footer-neo__grid {
+  grid-template-columns: 2fr 1fr 1fr;
+  align-items: start
+}
+
+.footer-neo {
+  padding-block: 2rem;
+  background: linear-gradient(180deg, transparent rgba(0, 0, 0, .2))
+}
+
+@media (max-width:960px) {
+  .footer-neo__grid {
+    grid-template-columns: 1fr
+  }
+
+  .cta-neo__actions {
+    flex-direction: column
+  }
+}
+
+/* Search box micro-transitions (applied when header.js toggles .active) */
+.search-box {
+  transition: width 300ms cubic-bezier(.4, 0, .2, 1), opacity 300ms cubic-bezier(.4, 0, .2, 1);
+  width: 0;
+  opacity: 0;
+  padding: 0 0
+}
+
+.search-box.active {
+  width: 220px;
+  opacity: 1;
+  padding: 0 6px
+}
+
+/* Utility to match Tailwind-like naming if you opt to keep classes */
+.transition-all-duration-300 {
+  transition: all 300ms ease-in-out
+}

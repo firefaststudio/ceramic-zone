@@ -1,0 +1,53 @@
+{
+  "report": [
+    {
+      "phase": "Avvio worker",
+      "objective": "Processo in ascolto senza errori",
+      "expected": "Worker attivo",
+      "result": "",
+      "notes": ""
+    },
+    {
+      "phase": "Test singolo controllo",
+      "objective": "OCR + estrazione punti completati",
+      "expected": "Stato done + punti in review",
+      "result": "",
+      "notes": ""
+    },
+    {
+      "phase": "Batch buoni",
+      "objective": "Tutti done, punti completi",
+      "expected": "4/4 completati",
+      "result": "",
+      "notes": ""
+    },
+    {
+      "phase": "Batch errori/limite",
+      "objective": "Rifiuto o gestione retry",
+      "expected": "Rifiuto formati e pesi errati",
+      "result": "",
+      "notes": ""
+    },
+    {
+      "phase": "Stress test",
+      "objective": "Gestione carico e retry/backoff",
+      "expected": "Nessun crash, retry tracciati",
+      "result": "",
+      "notes": ""
+    },
+    {
+      "phase": "Analisi aggregata",
+      "objective": "KPI globali coerenti",
+      "expected": "Valori attesi",
+      "result": "",
+      "notes": ""
+    },
+    {
+      "phase": "Analisi dettaglio",
+      "objective": "Job dossier corretto",
+      "expected": "Dati completi e coerenti",
+      "result": "",
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+Fase,Obiettivo,Esito atteso,Esito reale,Note/Anomalie,timestamp
+Avvio worker,Worker attivo,✅ Worker attivo,✅ Worker attivo correttamente,,2025-08-21T10:00:00Z
+Test OCR singolo,OCR + estrazione,✅ Punti estratti,✅ Punti estratti correttamente,,2025-08-21T10:05:00Z
+Stress test,Robustezza,⚠️ Alcuni retry,⚠️ Retry eseguiti,Minor timeout page 3,2025-08-21T10:10:00Z
+Bad file handling,Input invalidi,❌ Rifiuto file,❌ Rifiutato per mime non valido,File non PDF,2025-08-21T10:12:00Z

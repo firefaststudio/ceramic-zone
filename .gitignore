@@ -1,0 +1,8 @@
+.env
+node_modules/
+
+# reporting outputs
+reporting/output/
+reports/archive/
+.DS_Store
+.vscode/*.code-workspace

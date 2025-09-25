@@ -1,0 +1,48 @@
+:root {
+  /* Palette */
+  --color-bg: #ffffff;
+  --color-surface: #f7f7f5;
+  --color-text: #1a1a1a;
+  --color-muted: #6b6b6b;
+  --color-border: #e6e4e0;
+  --color-accent: #c49a6c;
+  /* oro caldo */
+  --color-accent-contrast: #ffffff;
+  --color-dark: #111213;
+
+  /* Tipografia */
+  --font-sans: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --fs-900: clamp(2.2rem, 5vw, 3.6rem);
+  --fs-800: clamp(1.8rem, 3.5vw, 2.4rem);
+  --fs-700: 1.5rem;
+  --fs-600: 1.125rem;
+  --fs-500: 1rem;
+  --fs-400: 0.9375rem;
+
+  /* Spaziatura (8‑pt scale) */
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* Raggi e ombre */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 18px;
+  --shadow-1: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-2: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* Larghezze */
+  --max-w: 1200px;
+  --container-pad: 24px;
+
+  /* Timing */
+  --ease: cubic-bezier(.22, .61, .36, 1);
+  --dur-fast: 160ms;
+  --dur-med: 280ms;
+}

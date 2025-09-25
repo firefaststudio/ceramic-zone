@@ -1,0 +1,2 @@
+Fase,Obiettivo,Esito atteso,Esito reale,Note/Anomalie,Timestamp,ID_sessione
+Avvio worker,Processo in ascolto senza errori,✅ Worker attivo,✅ Worker attivo correttamente,,2025-08-21 18:05,TEST-0001

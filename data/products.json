@@ -1,0 +1,50 @@
+[
+  {
+    "id": "p1",
+    "name": "Piastrella Porcellanato Bianca 60x60",
+    "description": "Piastrella resistente per interni ed esterni",
+    "price": 29.9,
+    "category": "rivestimenti",
+    "stock_quantity": 120,
+    "images": [
+      "/img/p1-1.jpg"
+    ],
+    "created_at": "2025-08-01T08:00:00Z"
+  },
+  {
+    "id": "p2",
+    "name": "Rivestimento Marmo Rettificato 30x60",
+    "description": "Finitura marmo lucida",
+    "price": 45.0,
+    "category": "rivestimenti",
+    "stock_quantity": 40,
+    "images": [
+      "/img/p2-1.jpg"
+    ],
+    "created_at": "2025-07-05T08:00:00Z"
+  },
+  {
+    "id": "p3",
+    "name": "Grande Lastra 120x240",
+    "description": "Grande lastra per pavimenti e rivestimenti",
+    "price": 85.0,
+    "category": "lastre",
+    "stock_quantity": 12,
+    "images": [
+      "/img/p3-1.jpg"
+    ],
+    "created_at": "2025-06-15T08:00:00Z"
+  },
+  {
+    "id": "p4",
+    "name": "Kit Manutenzione",
+    "description": "Kit per pulizia e manutenzione superfici",
+    "price": 19.9,
+    "category": "accessori",
+    "stock_quantity": 200,
+    "images": [
+      "/img/p4-1.jpg"
+    ],
+    "created_at": "2025-05-02T08:00:00Z"
+  }
+]

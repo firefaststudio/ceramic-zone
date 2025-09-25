@@ -1,0 +1,30 @@
+/* Critical design tokens (loaded early) */
+:root {
+  --brand: #00bfff;
+  --brand-600: #005fa3;
+  --ink: #e6eefc;
+  --muted: #6b7280;
+  --bg: #0b0f18;
+  --bg-soft: #0f1720;
+  --accent: #10b981;
+  --danger: #ef4444;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .06);
+  --shadow-md: 0 6px 16px rgba(0, 0, 0, .1);
+  --focus-ring: 0 0 0 3px rgba(91, 124, 250, .45);
+}
+
+@media (prefers-color-scheme:dark) {
+  :root {
+    --ink: #f5f7fa;
+    --cloud: #2b3140;
+  }
+}
+
+/* Minimal helpers used by critical styles */
+html,
+body {
+  background: var(--bg);
+  color: var(--ink)
+}

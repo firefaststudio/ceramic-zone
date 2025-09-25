@@ -1,0 +1,32 @@
+[
+  {
+    "test": "mega-menu",
+    "ok": null,
+    "value": "skipped"
+  },
+  {
+    "test": "drawer-open-aria",
+    "ok": true,
+    "value": null
+  },
+  {
+    "test": "drawer-close-aria",
+    "ok": true,
+    "value": null
+  },
+  {
+    "test": "hero",
+    "ok": null,
+    "value": "skipped"
+  },
+  {
+    "test": "row-scroll",
+    "ok": null,
+    "value": "skipped"
+  },
+  {
+    "test": "cart",
+    "ok": null,
+    "value": "skipped"
+  }
+]

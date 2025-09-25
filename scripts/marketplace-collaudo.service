@@ -1,0 +1,14 @@
+[Unit]
+Description=Marketplace Collaudo Export Runner
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/marketplace-backend
+ExecStart=/usr/bin/node /opt/marketplace-backend/scripts/auto_export.mjs /opt/marketplace-backend/reports/trigger.csv --project ProductionProject --out-dir /opt/marketplace-backend/reports/archive
+Restart=on-failure
+User=marketplace
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target

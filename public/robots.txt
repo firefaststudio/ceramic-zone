@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.ceramiczone.it/sitemap.xml
+
+# Block sensitive folders
+Disallow: /api/
+Disallow: /admin/

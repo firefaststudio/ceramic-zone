@@ -1,0 +1,50 @@
+{
+  "url": "http://localhost:8080",
+  "timestamp": "2025-09-24T11:29:55.586Z",
+  "desktop": {
+    "viewport": {
+      "width": 1280,
+      "height": 900
+    },
+    "screenshots": "Z:\\CERMIC ZONE PROJECT\\SITO WEB CON FRAMER\\marketplace-backend\\artifacts\\visual-desktop.png",
+    "html": "Z:\\CERMIC ZONE PROJECT\\SITO WEB CON FRAMER\\marketplace-backend\\artifacts\\html-desktop.html",
+    "hz": {
+      ".hz-header": true,
+      "#all-depts": false,
+      "#mega-depts": false,
+      ".hz-burger": true,
+      "#nav-drawer": false,
+      "#cart-count": false,
+      "[data-row]": false,
+      "[data-add-cart]": false
+    },
+    "neo": {
+      ".hero-neo": false,
+      "#search-icon": false,
+      "#neonParticles": false
+    }
+  },
+  "mobile": {
+    "viewport": {
+      "width": 375,
+      "height": 812
+    },
+    "screenshots": "Z:\\CERMIC ZONE PROJECT\\SITO WEB CON FRAMER\\marketplace-backend\\artifacts\\visual-mobile.png",
+    "html": "Z:\\CERMIC ZONE PROJECT\\SITO WEB CON FRAMER\\marketplace-backend\\artifacts\\html-mobile.html",
+    "hz": {
+      ".hz-header": true,
+      "#all-depts": false,
+      "#mega-depts": false,
+      ".hz-burger": true,
+      "#nav-drawer": false,
+      "#cart-count": false,
+      "[data-row]": false,
+      "[data-add-cart]": false
+    },
+    "neo": {
+      ".hero-neo": false,
+      "#search-icon": false,
+      "#neonParticles": false
+    }
+  }
+}

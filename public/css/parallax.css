@@ -1,0 +1,40 @@
+.parallax {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+
+.parallax .overlay {
+  padding: 6rem 2rem;
+  color: #fff;
+  text-align: center;
+}
+
+/* Disable parallax on mobile to improve performance and avoid background-attachment issues */
+@media (max-width: 767px) {
+  .parallax {
+    background-attachment: scroll;
+  }
+
+  .parallax .overlay {
+    padding: 3rem 1rem;
+  }
+}
+
+/* Focus styles for accessibility */
+:focus {
+  outline: 3px solid rgba(0, 255, 198, 0.9);
+  outline-offset: 2px;
+}
+
+/* Prefer reduced motion: remove heavy parallax and transitions */
+@media (prefers-reduced-motion: reduce) {
+  .parallax {
+    background-attachment: scroll !important;
+  }
+
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

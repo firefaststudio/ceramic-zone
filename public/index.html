@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ceramic Zone</title>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+  <!-- Top navigation with search (externalized behaviour in js/header.js) -->
+  <header class="topbar" role="banner">
+    <div class="container topbar-row">
+      <nav class="left-nav" aria-label="Navigazione principale">
+        <a href="/" class="logo" aria-label="Home"><img src="/img/logo.svg" alt="Ceramic Zone" width="140"
+            height="28"></a>
+        <a href="#" class="nav-link">Home</a>
+        <a href="#prodotti" class="nav-link">Prodotti</a>
+      </nav>
+
+      <div class="site-title" aria-hidden="true">Ceramic Zone</div>
+
+      <nav class="right-nav" aria-label="Navigazione secondaria">
+        <a href="#chi-siamo" class="nav-link">Chi Siamo</a>
+        <a href="#contatti" class="nav-link">Contatti</a>
+      </nav>
+    </div>
+
+    <div class="container topbar-bottom">
+      <form role="search" class="search-form" action="/search" method="get" onsubmit="return false;">
+        <button id="search-icon" type="button" class="search-toggle" aria-label="Apri ricerca" aria-expanded="false">
+          🔍
+        </button>
+        <label for="search-input" class="sr-only">Cerca</label>
+        <input id="search-input" name="q" class="search-box" type="search" placeholder="Cerca..." aria-label="Cerca">
+      </form>
+
+      <a href="#carrello" class="cart" aria-label="Vai al carrello">🛒</a>
+    </div>
+  </header>
+
+  <!-- Hero Neo (canvas-based neon particles) -->
+  <section class="hero-neo" role="region" aria-labelledby="hero-title">
+    <!-- Provide intrinsic canvas size to avoid layout shifts; keep id for particles JS -->
+    <canvas id="neonParticles" width="1600" height="900" aria-hidden="true"></canvas>
+    <div class="hero-neo__content">
+      <h1 id="hero-title" class="fade-in-up">Benvenuto nel Futuro</h1>
+      <p class="fade-in-up delay-1">Esperienza immersiva, design mostruoso.</p>
+      <p class="hero-neo__kicker" aria-hidden="true">Dark · Neon · Performance</p>
+      <a href="#scopri" class="card-neo__btn glow-pulse" role="button">Scopri di più</a>
+    </div>
+  </section>
+
+  <!-- CTA anchor target -->
+  <div id="cta"></div>
+
+  <!-- Parallax section (decorative) -->
+  <section class="parallax" style="background-image:url('/img/bg-neon.webp');">
+    <div class="overlay">
+      <h2 class="fade-in-up">Benvenuto nel futuro</h2>
+    </div>
+  </section>
+
+  <!-- Central Call To Action -->
+  <section class="cta-neo" role="region" aria-labelledby="cta-hero-title">
+    <div class="container">
+      <h2 id="cta-hero-title">Pronto a iniziare?</h2>
+      <p class="cta-neo__lead">Scegli il piano adatto a te e parti subito con la prova gratuita.</p>
+      <div class="cta-neo__actions">
+        <a class="btn btn-primary" href="#pricing" id="cta-primary">Scegli il piano</a>
+        <a class="btn btn-ghost" href="#cta" id="cta-secondary">Contattaci</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Novità: placeholder vuoto; sarà popolata da JS -> /api/news -->
+  <main id="main" role="main" style="min-height:600px">
+    <section id="novita" class="section reveal">
+      <div class="container">
+        <h2>Novità <small id="sort-indicator" style="font-size:0.8em;color:#e6eefc"></small></h2>
+        <div class="search-bar">
+          <input type="search" id="news-search" placeholder="Cerca nelle novità…" aria-label="Cerca news">
+        </div>
+        <div id="news-filters" class="filters" aria-label="Filtri novità">
+          <button data-category="all" class="btn btn-ghost active">Tutte</button>
+          <button data-category="tech" class="btn btn-ghost">Tech</button>
+          <button data-category="design" class="btn btn-ghost">Design</button>
+          <button data-category="business" class="btn btn-ghost">Business</button>
+        </div>
+        <div class="sort-bar">
+          <label for="news-sort">Ordina per:</label>
+          <select id="news-sort">
+            <option value="date_desc">Più recenti</option>
+            <option value="date_asc">Più vecchie</option>
+            <option value="popularity">Più popolari</option>
+          </select>
+        </div>
+        <div id="news-grid" class="news-grid" aria-live="polite">
+          <!-- Server-rendered skeletons to reserve space and reduce CLS (JS will hydrate) -->
+          <article class="card news-card skeleton" data-news-id="placeholder-1" aria-hidden="true">
+            <div class="card-media skeleton-box" style="width:400px;height:240px"></div>
+            <div class="card-body">
+              <h3 class="skeleton-line" style="width:60%"></h3>
+              <p class="skeleton-line" style="width:90%"></p>
+              <p class="skeleton-line" style="width:40%"></p>
+            </div>
+          </article>
+          <article class="card news-card skeleton" data-news-id="placeholder-2" aria-hidden="true">
+            <div class="card-media skeleton-box" style="width:400px;height:240px"></div>
+            <div class="card-body">
+              <h3 class="skeleton-line" style="width:60%"></h3>
+              <p class="skeleton-line" style="width:80%"></p>
+              <p class="skeleton-line" style="width:50%"></p>
+            </div>
+          </article>
+        </div>
+        <div style="text-align:center; margin-top: 1rem;">
+          <button id="load-more" class="btn">Carica altri</button>
+        </div>
+        <!-- sentinel for lazy loading -->
+        <div id="news-sentinel" class="sentinel" aria-hidden="true"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Features -->
+  <section id="features" class="section" aria-labelledby="scopri">
+    <div class="container">
+      <h2 id="scopri">Perché sceglierci</h2>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Affidabilità</h3>
+          <p>Uptime certificato e controlli di governance end-to-end.</p>
+        </article>
+        <article class="card">
+          <h3>Prestazioni</h3>
+          <p>Tempi di risposta costanti sotto carico globale.</p>
+        </article>
+        <article class="card">
+          <h3>Scalabilità</h3>
+          <p>Architettura elastica pronta per milioni di utenti.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="section reveal">
+    <div class="container">
+      <h2>Chi Siamo</h2>
+      <p>
+        Siamo un team di sviluppatori e designer appassionati, con l’obiettivo di creare strumenti
+        <a href="#mission" class="link-underline">semplici</a> e potenti per migliorare il tuo lavoro quotidiano.
+      </p>
+      <div id="mission" aria-hidden="true"></div>
+      <p>
+        La nostra missione è fornire soluzioni scalabili, sicure e accessibili a tutti.
+      </p>
+    </div>
+  </section>
+
+  <!-- Pricing Neo -->
+  <section id="pricing" class="pricing-neo">
+    <h2 class="pricing-neo__title">Scegli il tuo piano</h2>
+    <div class="container">
+      <div class="pricing-neo__grid">
+        <div class="pricing-neo__card">
+          <div class="pricing-neo__plan">Basic</div>
+          <div class="pricing-neo__price">€9<span>/mese</span></div>
+          <ul class="pricing-neo__features">
+            <li>Accesso base</li>
+            <li>Supporto via email</li>
+            <li>1 progetto attivo</li>
+          </ul>
+          <a href="#" class="pricing-neo__btn">Acquista</a>
+        </div>
+
+        <div class="pricing-neo__card">
+          <div class="pricing-neo__plan">Pro</div>
+          <div class="pricing-neo__price">€29<span>/mese</span></div>
+          <ul class="pricing-neo__features">
+            <li>Accesso completo</li>
+            <li>Supporto prioritario</li>
+            <li>Progetti illimitati</li>
+          </ul>
+          <a href="#" class="pricing-neo__btn">Acquista</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-black/90 py-12 mt-16">
+    <div class="max-w-6xl mx-auto px-6 grid gap-8 md:grid-cols-4">
+      <div>
+        <h3 class="font-bold mb-4">Informazioni</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#" class="hover:text-[#D4AF37]">Chi Siamo</a></li>
+          <li><a href="#" class="hover:text-[#D4AF37]">Contatti</a></li>
+          <li><a href="#" class="hover:text-[#D4AF37]">Termini e Condizioni</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold mb-4">Prodotti</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#" class="hover:text-[#D4AF37]">Ceramiche</a></li>
+          <li><a href="#" class="hover:text-[#D4AF37]">Accessori</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold mb-4">Servizio Clienti</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#" class="hover:text-[#D4AF37]">Resi</a></li>
+          <li><a href="#" class="hover:text-[#D4AF37]">Spedizioni</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold mb-4">Seguici</h3>
+        <div class="flex space-x-4 text-lg">
+          <a href="#" class="hover:text-[#D4AF37]"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="hover:text-[#D4AF37]"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="hover:text-[#D4AF37]"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script -->
+  <script src="js/header.js" defer></script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start Local Server (npx live-server / fallback)",
+      "type": "shell",
+      "command": "powershell -ExecutionPolicy Bypass -File ./scripts/start-server.ps1",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Start Local Server (python)",
+      "type": "shell",
+      "command": "powershell -ExecutionPolicy Bypass -Command \"cd frontend; python -m http.server 5500\"",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Start Express Server (node)",
+      "type": "shell",
+      "command": "node ${workspaceFolder}/index.js",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

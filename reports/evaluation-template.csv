@@ -1,0 +1,8 @@
+Fase,Obiettivo,Esito atteso,Esito reale,Note/Anomalie
+Avvio worker,Processo in ascolto senza errori,✅ Worker attivo,,
+Test singolo controllo,OCR + estrazione punti completati,✅ Stato done + punti in review,,
+Batch “buoni”,Tutti done, punti completi,✅ 4/4 completati,,
+Batch “errori/limite”,Rifiuto o gestione retry,⚠️ Rifiuto formati e pesi errati,,
+Stress test,Gestione carico e retry/backoff,✅ Nessun crash, retry tracciati,,
+Analisi aggregata,KPI globali coerenti,✅ Valori attesi,,
+Analisi di dettaglio,Job dossier corretto,✅ Dati completi e coerenti,,

@@ -1,0 +1,8 @@
+{
+  "liveServer.settings.root": "/public",
+  "files.exclude": {
+    "node_modules": true,
+    "reports/archive": true
+  },
+  "editor.formatOnSave": true
+}

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{NOME_SITO}} — Soluzioni digitali</title>
+  <meta name="description" content="{{NOME_SITO}} — design dark/neon, novità, prezzi e contatti. Scopri le ultime feature e i piani disponibili.">
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="{{NOME_SITO}} — Soluzioni digitali">
+  <meta property="og:description" content="Design dark/neon, novità e piani. Entra nel futuro con soluzioni scalabili e performanti.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://example.com/">
+  <meta property="og:image" content="/img/bg-neon.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{NOME_SITO}} — Soluzioni digitali">
+  <meta name="twitter:description" content="Design dark/neon, novità e piani. Entra nel futuro con soluzioni scalabili e performanti.">
+  <meta name="twitter:image" content="/img/bg-neon.webp">
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="css/styles.min.css">
+  <!-- Hero Neo fonts & theme -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/hero-neo.min.css">
+  <link rel="stylesheet" href="/css/cards-neo.min.css">
+  <link rel="stylesheet" href="/css/pricing-neo.css">
+  <link rel="stylesheet" href="/css/footer-neo.min.css">
+  <link rel="stylesheet" href="/css/animations-neo.css">
+  <link rel="stylesheet" href="/css/glow-kit.css">
+  <link rel="stylesheet" href="/css/parallax.css">
+  <link rel="stylesheet" href="/css/cursor.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container navbar">
+      <a href="/" class="logo" aria-label="Home">
+  <img src="img/logo.svg" alt="Logo {{NOME_SITO}}" height="28" width="140">
+      </a>
+      <nav class="menu" aria-label="Primary">
+        <a href="#features">Prodotto</a>
+        <a href="#pricing">Prezzi</a>
+        <a href="#about">Azienda</a>
+      </nav>
+      <a class="btn btn-primary" href="#cta">Inizia</a>
+    </div>
+  </header>
+
+  <!-- Hero Neo (canvas-based neon particles) -->
+  <section class="hero-neo">
+    <canvas id="neonParticles"></canvas>
+    <div class="hero-neo__content">
+      <h1 class="fade-in-up">Benvenuto nel Futuro</h1>
+      <p class="fade-in-up delay-1">Esperienza immersiva, design mostruoso.</p>
+    <a href="#scopri" class="card-neo__btn glow-pulse">Scopri di più</a>
+    </div>
+  </section>
+
+  <!-- CTA anchor target -->
+  <div id="cta"></div>
+
+  <!-- Parallax section (decorative) -->
+  <section class="parallax" style="background-image:url('/img/bg-neon.webp');">
+    <div class="overlay">
+      <h2 class="fade-in-up">Benvenuto nel futuro</h2>
+    </div>
+  </section>
+
+  <!-- Novità: placeholder vuoto; sarà popolata da JS -> /api/news -->
+  <section id="novita" class="section reveal">
+    <div class="container">
+  <h2>Novità <small id="sort-indicator" style="font-size:0.8em;color:#e6eefc"></small></h2>
+      <div class="search-bar">
+        <input type="search" id="news-search" placeholder="Cerca nelle novità…" aria-label="Cerca news">
+      </div>
+      <div id="news-filters" class="filters" aria-label="Filtri novità">
+        <button data-category="all" class="btn btn-ghost active">Tutte</button>
+        <button data-category="tech" class="btn btn-ghost">Tech</button>
+        <button data-category="design" class="btn btn-ghost">Design</button>
+        <button data-category="business" class="btn btn-ghost">Business</button>
+      </div>
+      <div class="sort-bar">
+        <label for="news-sort">Ordina per:</label>
+        <select id="news-sort">
+          <option value="date_desc">Più recenti</option>
+          <option value="date_asc">Più vecchie</option>
+          <option value="popularity">Più popolari</option>
+        </select>
+      </div>
+      <div id="news-grid" class="grid grid--3"></div>
+      <div style="text-align:center; margin-top: 1rem;">
+        <button id="load-more" class="btn">Carica altri</button>
+      </div>
+      <!-- sentinel for lazy loading -->
+      <div id="news-sentinel" style="height:1px;"></div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="section" aria-labelledby="scopri">
+    <div class="container">
+      <h2 id="scopri">Perché sceglierci</h2>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Affidabilità</h3>
+          <p>Uptime certificato e controlli di governance end-to-end.</p>
+        </article>
+        <article class="card">
+          <h3>Prestazioni</h3>
+          <p>Tempi di risposta costanti sotto carico globale.</p>
+        </article>
+        <article class="card">
+          <h3>Scalabilità</h3>
+          <p>Architettura elastica pronta per milioni di utenti.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="section reveal">
+    <div class="container">
+      <h2>Chi Siamo</h2>
+      <p>
+        Siamo un team di sviluppatori e designer appassionati, con l’obiettivo di creare strumenti
+        <a href="#mission" class="link-underline">semplici</a> e potenti per migliorare il tuo lavoro quotidiano.
+      </p>
+      <div id="mission" aria-hidden="true"></div>
+      <p>
+        La nostra missione è fornire soluzioni scalabili, sicure e accessibili a tutti.
+      </p>
+    </div>
+  </section>
+
+  <!-- Pricing Neo -->
+  <section id="pricing" class="pricing-neo">
+    <h2 class="pricing-neo__title">Scegli il tuo piano</h2>
+    <div class="container">
+      <div class="pricing-neo__grid">
+        <div class="pricing-neo__card">
+          <div class="pricing-neo__plan">Basic</div>
+          <div class="pricing-neo__price">€9<span>/mese</span></div>
+          <ul class="pricing-neo__features">
+            <li>Accesso base</li>
+            <li>Supporto via email</li>
+            <li>1 progetto attivo</li>
+          </ul>
+          <a href="#" class="pricing-neo__btn">Acquista</a>
+        </div>
+
+        <div class="pricing-neo__card">
+          <div class="pricing-neo__plan">Pro</div>
+          <div class="pricing-neo__price">€29<span>/mese</span></div>
+          <ul class="pricing-neo__features">
+            <li>Accesso completo</li>
+            <li>Supporto prioritario</li>
+            <li>Progetti illimitati</li>
+          </ul>
+          <a href="#" class="pricing-neo__btn">Acquista</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Neo -->
+  <footer class="footer-neo">
+    <div class="footer-neo__grid container">
+      <div class="footer-neo__col">
+        <h4>Chi siamo</h4>
+        <p>Breve descrizione della tua azienda o progetto, in poche righe.</p>
+      </div>
+
+      <div class="footer-neo__col">
+        <h4>Link utili</h4>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Servizi</a></li>
+          <li><a href="#">Contatti</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-neo__col">
+        <h4>Seguici</h4>
+        <div class="footer-neo__social">
+          <a href="#" aria-label="Facebook">FB</a>
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="LinkedIn">LI</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-neo__bottom">
+      © 2025 Nome Azienda – Tutti i diritti riservati
+    </div>
+  </footer>
+
+  <!-- Script unico -->
+  <script src="js/scripts.min.js" defer></script>
+  <!-- particles (canvas) module -->
+  <script src="js/particles.min.js" defer></script>
+  <!-- Custom neon cursor -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+
+  <script>
+    (function(){
+      try{
+        const dot = document.querySelector('.cursor-dot');
+        const outline = document.querySelector('.cursor-outline');
+        if(!dot || !outline) return;
+        document.addEventListener('mousemove', e => {
+          dot.style.top = outline.style.top = e.clientY + 'px';
+          dot.style.left = outline.style.left = e.clientX + 'px';
+        });
+        document.querySelectorAll('a, button').forEach(el => {
+          el.addEventListener('mouseenter', () => { outline.style.transform = 'scale(1.5)'; });
+          el.addEventListener('mouseleave', () => { outline.style.transform = 'scale(1)'; });
+        });
+      }catch(e){/* ignore */}
+    })();
+  </script>
+  <!-- particles module loaded from js/particles.js -->
+</body>
+</html>

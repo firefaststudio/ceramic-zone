@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600">
+  <rect width="100%" height="100%" fill="#f7f7f5"/>
+  <rect x="40" y="40" width="720" height="520" fill="#ddd" rx="16"/>
+  <text x="50%" y="50%" font-family="Montserrat, Arial" font-size="28" fill="#888" text-anchor="middle" dominant-baseline="middle">
+    PRODUCT IMAGE
+  </text>
+</svg>

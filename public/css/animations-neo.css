@@ -1,0 +1,91 @@
+/* ANIMAZIONI GLOBALI – Dark/Neon Style */
+
+/* Fade-in dolce per elementi in viewport */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Glow pulsante neon */
+.glow-pulse {
+  /* Replace box-shadow animation (non-composited) with a composited transform/opacity animation
+     The visual glow is produced by a pseudo-element which animates opacity + transform only. */
+  position: relative;
+}
+
+.glow-pulse::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  width: 120%;
+  height: 120%;
+  border-radius: 12px;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgba(0, 255, 198, 0.28), rgba(0, 255, 198, 0.06));
+  filter: blur(6px);
+  will-change: transform, opacity;
+  opacity: 0.6;
+  animation: glowPulseComposited 2s infinite linear;
+}
+
+@keyframes glowPulseComposited {
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(0.98);
+    opacity: 0.5
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.12);
+    opacity: 0.9
+  }
+}
+
+/* Hover morbido su link */
+a,
+button {
+  transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+}
+
+a:hover,
+button:hover {
+  transform: translateY(-2px);
+}
+
+/* Immagini con zoom leggero al passaggio */
+.img-zoom {
+  transition: transform 0.4s ease;
+}
+
+.img-zoom:hover {
+  transform: scale(1.05);
+}
+
+/* Ritardo animazioni in sequenza */
+.delay-1 {
+  animation-delay: 0.2s;
+}
+
+.delay-2 {
+  animation-delay: 0.4s;
+}
+
+.delay-3 {
+  animation-delay: 0.6s;
+}
+
+/* Use .fade-in-up.animate when applying via IntersectionObserver */
+.fade-in-up.animate {
+  animation: fadeInUp 0.8s ease forwards;
+}

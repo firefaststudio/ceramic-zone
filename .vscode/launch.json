@@ -1,0 +1,42 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch API Server",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/index.js",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/.env",
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    },
+    {
+      "name": "Run auto_export (sample)",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [],
+      "program": "${workspaceFolder}/scripts/auto_export.mjs",
+      "args": [
+        "${workspaceFolder}/reports/test_samples/sample_pilot.csv",
+        "--project",
+        "Dev",
+        "--out-dir",
+        "${workspaceFolder}/reports/archive"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "name": "Python: Exporter (example) - requires Python extension",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/export_collaudo_example.py",
+      "console": "integratedTerminal"
+    }
+  ]
+}

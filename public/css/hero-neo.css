@@ -1,0 +1,117 @@
+/* HERO NEO – Stile moderno e animato */
+:root {
+  --bg: #0D0D0D;
+  --muted: #bfbfbf;
+  --neon: #00FFC6;
+  --accent: #00BFFF;
+  --max-width: 1100px;
+}
+
+.hero-neo {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bg);
+  color: #F5F5F5;
+  font-family: 'Poppins', sans-serif;
+}
+
+.hero-neo__bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #0D0D0D, #1a1a1a);
+  z-index: 1;
+}
+
+.hero-neo__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: var(--max-width);
+  padding: 2rem;
+}
+
+.hero-neo__title {
+  font-size: clamp(1.6rem, 4vw, 3rem);
+  margin-bottom: 1rem;
+  color: #fff;
+  animation: fadeInUp 1s ease-out;
+}
+
+.hero-neo__subtitle,
+.hero-neo__content p {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  margin-bottom: 2rem;
+  color: #ffffff;
+  /* ensure high contrast */
+  animation: fadeInUp 1.5s ease-out;
+}
+
+.hero-neo__cta {
+  background: var(--neon);
+  color: #0D0D0D;
+  padding: 0.6rem 1.2rem;
+  border-radius: 40px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  will-change: transform;
+}
+
+.hero-neo__cta:hover,
+.hero-neo__cta:focus {
+  box-shadow: 0 0 18px var(--neon);
+  transform: scale(1.03);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Canvas fills the hero */
+.hero-neo canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-neo__content {
+  z-index: 2;
+}
+
+/* Accessibility: reduce motion */
+@media (prefers-reduced-motion: reduce) {
+
+  .hero-neo__title,
+  .hero-neo__subtitle {
+    animation: none !important;
+  }
+
+  .hero-neo canvas {
+    display: none !important;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 599px) {
+  .hero-neo__content {
+    padding: 1.25rem;
+  }
+
+  .hero-neo__subtitle {
+    margin-bottom: 1rem;
+  }
+}

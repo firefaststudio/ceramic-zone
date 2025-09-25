@@ -1,0 +1,70 @@
+/* FOOTER NEO – Dark/Neon Style */
+.footer-neo {
+  background: #070708;
+  /* darker for contrast */
+  padding: 3rem 2rem;
+  color: #e6eefc;
+}
+
+.footer-neo__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-neo__grid p {
+  color: #ffffff;
+}
+
+.footer-neo__col h4 {
+  color: #00FFC6;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.footer-neo__col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-neo__col ul li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-neo__col ul li a {
+  color: #e6eefc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-neo__col ul li a:hover {
+  color: #00FFC6;
+}
+
+.footer-neo__social {
+  display: flex;
+  gap: 1rem;
+}
+
+.footer-neo__social a {
+  color: #00FFC6;
+  font-size: 1.4rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.footer-neo__social a:hover {
+  transform: scale(1.2);
+  color: #fff;
+}
+
+.footer-neo__bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #ffffff;
+  background: #060606;
+  padding: 1rem 2rem 0.5rem;
+}
