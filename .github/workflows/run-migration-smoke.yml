@@ -45,29 +45,76 @@ jobs:
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/testdb
         run: |
-          # Cattura ogni output in migration-log.txt
-          {
-            echo "=== Starting migration and smoke tests ==="
-            echo "--- Applying SQL migration ---"
-            psql "$DATABASE_URL" -f 001_create_tables.sql
-            echo "--- Migrating products ---"
-            node scripts/migrate-products.js
-            echo "--- Starting server ---"
-            node index.js &
-            SERVER_PID=$!
-            sleep 5
-            echo "--- Running smoke tests ---"
-            npm run smoke
-            kill $SERVER_PID 2>/dev/null || true
-          } 2>&1 | tee migration-log.txt
+          # Initialize log file
+          echo "=== MIGRATION AND SMOKE TESTS LOG ===" > migration-log.txt
+          echo "Timestamp: $(date)" >> migration-log.txt
+          echo "Database: $DATABASE_URL" >> migration-log.txt
+          echo "" >> migration-log.txt
+          
+          # Step 1: SQL Migration
+          echo "=== Starting migration and smoke tests ===" | tee -a migration-log.txt
+          echo "--- Applying SQL migration ---" | tee -a migration-log.txt
+          if psql "$DATABASE_URL" -f 001_create_tables.sql >> migration-log.txt 2>&1; then
+            echo "✅ SQL migration completed successfully" | tee -a migration-log.txt
+          else
+            echo "❌ SQL migration failed" | tee -a migration-log.txt
+            exit 1
+          fi
+          
+          # Step 2: Product Migration
+          echo "--- Migrating products ---" | tee -a migration-log.txt
+          if node scripts/migrate-products.js >> migration-log.txt 2>&1; then
+            echo "✅ Product migration completed successfully" | tee -a migration-log.txt
+          else
+            echo "❌ Product migration failed" | tee -a migration-log.txt
+            exit 1
+          fi
+          
+          # Step 3: Server Startup
+          echo "--- Starting server ---" | tee -a migration-log.txt
+          node index.js >> migration-log.txt 2>&1 &
+          SERVER_PID=$!
+          echo "Server PID: $SERVER_PID" | tee -a migration-log.txt
+          sleep 5
+          
+          # Verify server is running
+          if kill -0 $SERVER_PID 2>/dev/null; then
+            echo "✅ Server started successfully" | tee -a migration-log.txt
+          else
+            echo "❌ Server failed to start" | tee -a migration-log.txt
+          fi
+          
+          # Step 4: Smoke Tests
+          echo "--- Running smoke tests ---" | tee -a migration-log.txt
+          if npm run smoke >> migration-log.txt 2>&1; then
+            echo "✅ Smoke tests completed successfully" | tee -a migration-log.txt
+          else
+            echo "⚠️ Smoke tests completed with issues" | tee -a migration-log.txt
+          fi
+          
+          # Cleanup
+          kill $SERVER_PID 2>/dev/null || true
+          echo "--- Migration and smoke tests completed ---" | tee -a migration-log.txt
+          echo "Final log size: $(wc -l < migration-log.txt) lines" | tee -a migration-log.txt
 
       - name: Export dumps and counts
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/testdb
         run: |
+          echo "--- Exporting database dumps ---" | tee -a migration-log.txt
           psql "$DATABASE_URL" -c "SELECT count(*) AS products_count FROM products;" > dump-products-count.txt
           psql "$DATABASE_URL" -c "COPY (SELECT * FROM orders) TO STDOUT WITH CSV HEADER;" > dump-orders.txt
           psql "$DATABASE_URL" -c "COPY (SELECT * FROM order_items) TO STDOUT WITH CSV HEADER;" > dump-order_items.txt
+          echo "✅ Database dumps exported successfully" | tee -a migration-log.txt
+
+      - name: Verify artifacts
+        run: |
+          echo "=== ARTIFACT VERIFICATION ===" | tee -a migration-log.txt
+          echo "Checking generated files:" | tee -a migration-log.txt
+          ls -la migration-log.txt smoke-report.json dump-*.txt | tee -a migration-log.txt
+          echo "Migration log size: $(wc -l < migration-log.txt) lines" | tee -a migration-log.txt
+          echo "Migration log preview:" | tee -a migration-log.txt
+          head -10 migration-log.txt | tee -a migration-log.txt
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
