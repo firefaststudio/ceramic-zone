@@ -4,79 +4,24 @@
   "type": "module",
   "description": "",
   "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test-supabase": "node test-supabase.mjs",
+    "smoke": "node test-supabase.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@supabase/supabase-js": "^2.55.0",
-    "@types/react": "^19.1.13",
-    "@types/react-dom": "^19.1.9",
     "chalk": "^5.6.0",
-    "compression": "^1.8.1",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
-    "express-rate-limit": "^6.7.0",
-    "express-validator": "^6.14.3",
-    "helmet": "^6.0.1",
-    "morgan": "^1.10.0",
-    "pdfkit": "^0.13.0",
-    "pg": "^8.16.3",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "resend": "^6.0.1",
-    "winston": "^3.8.2"
-  },
-  "optionalDependencies": {
-    "chartjs-node-canvas": "^4.0.6",
-    "csv-parse": "^5.6.0",
-    "qrcode": "^1.5.4",
-    "uuid": "^11.1.0"
+    "pg": "^8.16.3"
   },
   "devDependencies": {
-    "@axe-core/cli": "^4.6.1",
-    "chrome-launcher": "^1.2.0",
-    "cssnano": "^6.0.1",
-    "lighthouse": "^12.8.1",
-    "nodemon": "^3.1.10",
-    "pa11y": "^6.0.1",
-    "postcss": "^8.4.24",
-    "postcss-cli": "^10.1.0",
-    "puppeteer": "^24.17.0",
-    "sharp": "^0.32.5",
-    "terser": "^5.20.0"
-  },
-  "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon --watch . --exec node index.js",
-    "test-supabase": "node test-supabase.mjs",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "email-queue:worker": "node ./scripts/process-email-queue.mjs",
-    "pdf-ocr:worker": "node ./scripts/pdf-ocr-worker.mjs",
-    "deploy:linux": "bash ./deploy.sh",
-    "deploy:windows": "powershell -ExecutionPolicy Bypass -File ./deploy.ps1",
-    "report:pdf": "node ./reports/generate_pdf_from_csv.mjs",
-    "report:both": "node ./reports/generate_report_both.mjs",
-    "report:node": "node ./reporting/export_report.mjs",
-    "report:auto": "node ./scripts/auto_export.mjs",
-    "test:pdf": "node ./tests/test-runner.mjs && node ./tests/assertions.mjs",
-    "build:css": "postcss frontend/css/components.css -o frontend/css/components.min.css",
-    "build:js": "terser frontend/scripts.js -o frontend/scripts.min.js --compress --mangle",
-    "build:images": "node ./scripts/convert-images.mjs",
-    "build:assets": "npm run build:css && npm run build:js && npm run build:images",
-    "smoke:api": "node ./scripts/smoke/api-smoke.mjs",
-    "smoke:header": "node ./scripts/smoke/header-smoke.mjs --force-hz --headless",
-    "smoke:visual": "node ./scripts/visual/inspect-browser.mjs",
-    "smoke": "npm run smoke:header && npm run smoke:visual",
-    "migrate:products": "node ./scripts/migrate-products.js",
-    "audit:pa11y": "pa11y http://localhost:8080",
-    "audit:axe": "axe http://localhost:8080"
-  },
-  "engines": {
-    "node": ">=20"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/firefaststudio/ceramic-zone.git"
+    "nodemon": "^3.1.10"
   }
 }
